@@ -15,3 +15,4 @@
 * 命令行参数`./server <root-path> <port>`；
 * 支持`html`、`css`、`javascript`、`image/jpeg`，设置合理的`minetype`；
 * 使用`多进程`实现并发；
+* 只需处理`GET`请求

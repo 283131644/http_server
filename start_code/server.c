@@ -16,9 +16,11 @@ int main(int argc, char *argv[]) {
         fprintf(stderr, "Usage: %s <root-path> <port>\n", argv[0]);
         exit(-1);
     }
+    // 读取参数
     char *root_path = argv[1];
     int port = atoi(argv[2]);
 
+    // 初始化地址
     struct sockaddr_in addr;
     bzero(&addr, sizeof(addr));
     addr.sin_family = AF_INET;
@@ -28,17 +30,20 @@ int main(int argc, char *argv[]) {
     addr.sin_addr.s_addr = htonl(INADDR_ANY);
     addr.sin_port = htons(port);
 
+    // 创建socket
     int listenfd = socket(AF_INET, SOCK_STREAM, 0);
     if (listenfd < 0) {
         perror("socket");
         exit(-1);
     }
 
+    // 绑定地址
     if (bind(listenfd, (struct sockaddr *)&addr, sizeof(addr)) < 0) {
         perror("bind");
         exit(-1);
     }
 
+    // 监听
     if (listen(listenfd, 5) < 0) {
         perror("listen");
         exit(-1);

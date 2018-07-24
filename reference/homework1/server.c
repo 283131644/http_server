@@ -88,6 +88,7 @@ int main(int argc, char *argv[]) {
         }
 
         // 如果漏掉这个，会导致什么问题？
+        // 试验一下，然后好好思考一下这个问题
         close(clientfd);
     }
 
@@ -122,6 +123,7 @@ void handle_client(char *root_path, int fd) {
         }
         req_len += n;
         req[req_len] = '\0';
+    printf("%s\n", req);
     }
 
     // 获取 URI
@@ -176,5 +178,6 @@ void handle_client(char *root_path, int fd) {
                                  "Content-Type: %s\r\n\r\n", st.st_size, type);
     write(fd, head, strlen(head));
     write(fd, content, st.st_size);
+    // 如果这里我们不close，是否可以继续再读请求？了解一下http的: Connection: keep-alive
     close(fd);
 }
